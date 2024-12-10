@@ -8,7 +8,15 @@ For answers to assignment questions 1, 2 and 3, see https://github.com/peculaze/
 
 ## 4) Random Motion
 
+### 4.1) Random Walk
 
+The random walk function, at each step, picks a random direction and moves 0.25 units in that direction. Two examples of 500-step random walks are as follows: 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/40eff1b2-b427-44bc-b50f-b52562f022f3">
+</p>
+
+With these starting parameters, neither path extended more than ~6 total units away from its starting location. Additionally, in neither path did the initial direction of travel match the overall direction. The movement pattern differs significantly between the two walks, however. The first walk travelled 2.597272 units total, at an angle of 5.189805 radians from the x axis (anticlockwise). Meanwhile, the second walk diverged 4.752672 units from the origin, at an overall angle of 3.655174 radians from the x axis. These final locations are very different, as are the patterns by which they travelled to those locations. Based on the random walk function, the final angle could be predicted under a random uniform distribution, while overall distance could be modelled under a normal distribution, hence the differences in results. 
 
 ## Instructions
 
