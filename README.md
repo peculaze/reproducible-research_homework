@@ -30,7 +30,7 @@ The initialisation number which is fed into the PRNG algorithm in order to gener
 
 ### 4.3) Brownian Motion
 
-Brownian motion is very similar to random walk, but requires changing total distance per step to also be normally distributed. The distance per step should also be small, since true Brownian motion is a continuous process approximated by a discsrete random walk. 
+Brownian motion is functionally similar to random walk, but true Brownian motion is a continuous movement modelled by a normal distribution for distance in x and y. Thus, the distance per step was modified to also be normally distributed.
 
 ## Instructions
 
