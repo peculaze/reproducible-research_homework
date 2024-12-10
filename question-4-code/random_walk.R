@@ -4,6 +4,8 @@
 library(ggplot2)
 library(gridExtra)
 
+set.seed(141)
+
 random_walk  <- function (n_steps) {
   # Create an empty dataframe for time, x and y containing (n_steps) rows
   df <- data.frame(x = rep(NA, n_steps), y = rep(NA, n_steps), time = 1:n_steps)
@@ -12,7 +14,7 @@ random_walk  <- function (n_steps) {
   # For loop describing each time point
   for (i in 2:n_steps) {
     # Select how far to travel each step
-    h <- 0.25
+    h <- abs(rnorm(1, mean = 0, sd = 1))
     # Pick a random angle from a uniform distribution (0 points right, higher values go anticlockwise)
     angle <- runif(1, min = 0, max = 2*pi)
     # Movement in x (previous x value + cosine)
