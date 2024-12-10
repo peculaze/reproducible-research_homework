@@ -16,7 +16,21 @@ The random walk function, at each step, picks a random direction and moves 0.25 
   <img src="https://github.com/user-attachments/assets/40eff1b2-b427-44bc-b50f-b52562f022f3">
 </p>
 
-With these starting parameters, neither path extended more than ~6 total units away from its starting location. Additionally, in neither path did the initial direction of travel match the overall direction. The movement pattern differs significantly between the two walks, however. The first walk travelled 2.597272 units total, at an angle of 5.189805 radians from the x axis (anticlockwise). Meanwhile, the second walk diverged 4.752672 units from the origin, at an overall angle of 3.655174 radians from the x axis. These final locations are very different, as are the patterns by which they travelled to those locations. Based on the random walk function, the final angle could be predicted under a random uniform distribution, while overall distance could be modelled under a normal distribution, hence the differences in results. 
+With these starting parameters, neither path extended more than ~6 total units away from its starting location. Additionally, in neither path did the initial direction of travel match the overall direction. The movement pattern differs significantly between the two walks, however. The first walk travelled 2.597272 units total, at an angle of 5.189805 radians from the x axis (anticlockwise). Meanwhile, the second walk diverged 4.752672 units from the origin, at an overall angle of 3.655174 radians from the x axis. These final locations are very different, as are the patterns by which they travelled to those locations. Based on the random walk function, the final angle could be predicted under a random uniform distribution, while overall distance could be modelled under a normal distribution due to central limit theorem, hence the differences in results. 
+
+### 4.2) Random Seeds
+
+Computers are inherently deterministic systems, which makes them incapable of generating random numbers spontaneously. Some peripherals are capable of using environmental randomness to source random numbers, but a more common approach is to use pseudo-random number generator (PRNG) algorithms to simulate randomness, which has the advantage of reproducibility. PRNGs use a variety of complex mathematical functions to generate a sequence of apparently independent numbers which each take the previous element of the sequence as input. Different members of this sequence are used to generate random numbers in processes that rely on random number generation. 
+
+The initialisation number which is fed into the PRNG algorithm in order to generate a sequence is called the seed. Since the PRNG is deterministic, each random seed will produce the same sequence of pseudorandom numbers, which are incorporated into 'random' functions in the same manner, thus making reproducible results. R stores this random seed as the `.Random.seed` variable under the global environment and updates each time it is called. Ordinarily, `.Random.seed` is initialised using the system clock, but the `set.seed()` function can be used to fix the PRNG input and thus fix the outputs for any subsequent functions involving random numbers. 
+
+*Sources:*
+- *https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html*
+- *https://r-coder.com/set-seed-r/*
+
+### 4.3) Brownian Motion
+
+Brownian motion is very similar to random walk, but requires changing total distance per step to also be normally distributed. The distance per step should also be small, since true Brownian motion is a continuous process approximated by a discsrete random walk. 
 
 ## Instructions
 
