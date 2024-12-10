@@ -30,7 +30,15 @@ The initialisation number which is fed into the PRNG algorithm in order to gener
 
 ### 4.3) Brownian Motion
 
-Brownian motion is functionally similar to random walk, but true Brownian motion is a continuous movement modelled by a normal distribution for distance in x and y. Thus, the distance per step was modified to also be normally distributed.
+Brownian motion is functionally similar to random walk, but true Brownian motion is a continuous movement modelled by a normal distribution for distance in x and y. Thus, the distance per step was modified to also be normally distributed. See `random_walk.R` for updated code. 
+
+### 4.4) Code Modification
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8b816768-a22b-4632-88c7-fb2d896c2059">
+</p>
+
+## 5) Viral Particle Size 
 
 ## Instructions
 
