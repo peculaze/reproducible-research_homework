@@ -10,7 +10,7 @@ virus_data_log <- virus_data
 virus_data_log$log.genome.length = log(virus_data$Genome.length..kb.)
 virus_data_log$log.virion.volume = log(virus_data$Virion.volume..nm.nm.nm.)
 
-# Code for 5.4): 
+# Code for 5.d): 
 ggplot(virus_data_log, aes(x=log.genome.length, y=log.virion.volume)) + 
   geom_point() + 
   theme_bw() +
@@ -18,7 +18,7 @@ ggplot(virus_data_log, aes(x=log.genome.length, y=log.virion.volume)) +
   labs(x = "log [Genome length (kb)]", y = "log [Virion volume (nm3)]") + 
   theme(axis.title = element_text(face = 2), size = 10)
 
-# Code for 5.5): 
+# Code for 5.e): 
 
 1181.807*300^(1.5152)
 
