@@ -10,11 +10,11 @@ For answers to assignment questions 1, 2 and 3, see https://github.com/peculaze/
 
 ### 4.1) Random Walk
 
-The random walk function, at each step, picks a random direction and moves 0.25 units in that direction. Two examples of 500-step random walks are as follows: 
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/40eff1b2-b427-44bc-b50f-b52562f022f3">
 </p>
+
+***Fig. 1.** A plot showing two output tracks of the random walk function after 500 steps, where each step moves 0.25 units in a random direction. A lighter blue line indicates proximity to the end of the walk.* 
 
 With these starting parameters, neither path extended more than ~6 total units away from its starting location. Additionally, in neither path did the initial direction of travel match the overall direction. The movement pattern differs significantly between the two walks, however. The first walk travelled 2.597272 units total, at an angle of 5.189805 radians from the x axis (anticlockwise). Meanwhile, the second walk diverged 4.752672 units from the origin, at an overall angle of 3.655174 radians from the x axis. These final locations are very different, as are the patterns by which they travelled to those locations. Based on the random walk function, the final angle could be predicted under a random uniform distribution, while overall distance could be modelled under a normal distribution due to central limit theorem, hence the differences in results. 
 
@@ -22,7 +22,7 @@ With these starting parameters, neither path extended more than ~6 total units a
 
 Computers are inherently deterministic systems, which makes them incapable of generating random numbers spontaneously. Some peripherals are capable of using environmental randomness to source random numbers, but a more common approach is to use pseudo-random number generator (PRNG) algorithms to simulate randomness, which has the advantage of reproducibility. PRNGs use a variety of complex mathematical functions to generate a sequence of apparently independent numbers which each take the previous element of the sequence as input. Different members of this sequence are used to generate random numbers in processes that rely on random number generation. 
 
-The initialisation number which is fed into the PRNG algorithm in order to generate a sequence is called the seed. Since the PRNG is deterministic, each random seed will produce the same sequence of pseudorandom numbers, which are incorporated into 'random' functions in the same manner, thus making reproducible results. R stores this random seed as the `.Random.seed` variable under the global environment and updates each time it is called. Ordinarily, `.Random.seed` is initialised using the system clock, but the `set.seed()` function can be used to fix the PRNG input and thus fix the outputs for any subsequent functions involving random numbers. 
+The initialisation number which is fed into the PRNG algorithm in order to generate a sequence is called the seed. Since the PRNG is deterministic, each random seed will produce the same sequence of pseudorandom numbers, which are incorporated into 'random' functions in the same manner, thus making reproducible results. R stores this random seed as the `.Random.seed` variable under the global environment and updates when called. Ordinarily, `.Random.seed` is initialised using the system clock, but the `set.seed()` function can be used to fix the PRNG input and thus fix the outputs for any subsequent functions involving random numbers. 
 
 *Sources:*
 - *https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html*
@@ -30,7 +30,7 @@ The initialisation number which is fed into the PRNG algorithm in order to gener
 
 ### 4.3) Brownian Motion
 
-Brownian motion is functionally similar to random walk, but true Brownian motion is a continuous movement modelled by a normal distribution for distance in x and y. Thus, the distance per step was modified to also be normally distributed. See `random_walk.R` for updated code. 
+Brownian motion is functionally similar to random walk, but true Brownian motion is a continuous movement modelled by a normal distribution for distance in x and y. Thus, the distance per step was modified to also be normally distributed. A random seed was also added for reproducibility. See `random_walk.R` for updated code. 
 
 ### 4.4) Code Modification
 
@@ -39,6 +39,91 @@ Brownian motion is functionally similar to random walk, but true Brownian motion
 </p>
 
 ## 5) Viral Particle Size 
+
+### 5.1) Data Import 
+
+The dsDNA virus section of the supplementary table contains 13 columns and 33 rows, excluding column names. 
+
+### 5.2) Linear Model Transformation
+
+As the equation is of the form $`y = ax^{b}`$, a log transform in both genome size and virion volume facilitates fitting a linear model. This can be shown by the following algebraic steps:
+
+```math
+\begin{equation}
+V = αL^β
+\end{equation}
+```
+
+```math
+\begin{equation}
+log(V) = log(αL^β)
+\end{equation}
+```
+
+```math
+\begin{equation}
+log(V) = log(L^β) + log(a)
+\end{equation}
+```
+
+```math
+\begin{equation}
+log(V) = βlog(L) + log(a)
+\end{equation}
+```
+
+This is now an equation of the form $`y = mx + c`$, where $`$y = log(V)`$, $`m = β`$, $`x = log(L)`$, and $`c = log(α)`$. 
+
+### 5.3) Exponent and Scaling factor. 
+
+The linear model applied to a dual log transform predicts the slope to be 1.5152, and the intercept to be 7.0748. As the slope is β and the intercept is log(α), this produces the following values for the exponent (β) and scaling factor (α): 
+
+```math
+\begin{equation}
+β = 1.5152
+\end{equation}
+```
+
+```math
+\begin{equation}
+α = 1181.807
+\end{equation}
+```
+
+The p value obtained for α was `2.28e-10`, and the p value obtained for beta was `6.44e-10`, both of which are statistically significant.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5d684bf9-5c67-4b7c-94a9-153c19e8cba6">
+</p>
+
+These values align with those found in **Table. 2** of the publication by Cui et al (2014). 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c6cb5b30-0739-4372-8525-a8c3152cf417">
+</p>
+# 
+
+### 5.4) Transformed Plot of Virion Volume and Genome Size
+
+The code to produce the plot in the assignment instructions is as follows: 
+
+```
+ggplot(virus_data_log, aes(x=log.genome.length, y=log.virion.volume)) + 
+  geom_point() + 
+  theme_bw() +
+  geom_smooth(method = "lm") + 
+  labs(x = "log [Genome length (kb)]", y = "log [Virion volume (nm3)]") + 
+  theme(axis.title = element_text(face = 2), size = 10)
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/67d5d695-7e08-4375-985d-796fa00e3597", width = "365", height = "326">
+</p>
+
+
+### 5.5) Volume Calculation from Genome Length
+
+Plugging $`300kb`$ into the equation $`V = αL^{β}`$ gives **6697006nm<sup>3</sup>** as the size of the host virion, assuming accurate values of α and β generated by the linear model.
 
 ## Instructions
 
